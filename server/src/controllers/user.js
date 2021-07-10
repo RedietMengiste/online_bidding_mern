@@ -141,22 +141,28 @@ exports.updateUserByID = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
-    const user = req.user || (await User.findById(req.params.id));
-    user = extend(user, req.body);
-    user.updated = Date.now();
-    await user.save();
-    user.password = undefined;
-    user.salt = undefined;
-    res.json(user);
-  } catch (err) {
-    return res.status(400).json({
-      error: "errorHandler.getErrorMessage()",
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      populate: "owner",
     });
+    if (!user) {
+      res.status(404).json({
+        status: "error",
+        message: "User with this ID does not exist",
+      });
+    }
+    req.user = user;
+    res.status(200).json({
+      status: "success",
+      user,
+    });
+  } catch (err) {
+    console.log(err);
   }
 };
 
 exports.isSeller = (req, res, next) => {
-  const isSeller = req.profile && req.profile.seller;
+  const isSeller = req.user && req.user.seller;
   if (!isSeller) {
     return res.status("403").json({
       error: "User is not a seller",

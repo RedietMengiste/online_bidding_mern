@@ -24,6 +24,9 @@ const schema = new mongoose.Schema(
 );
 
 schema.plugin(mongoosePaginate);
+schema.methods.isOwner = async function (shop, user) {
+  return await shop.owner.equals(user._id);
+};
 const Shop = mongoose.model("Shop", schema);
 
 module.exports = Shop;

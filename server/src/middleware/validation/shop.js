@@ -1,4 +1,4 @@
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 const mongoose = require("mongoose");
 
 exports.validate = (type) => {
@@ -14,6 +14,10 @@ exports.validate = (type) => {
     case "CREATE":
       return [
         body("name").not().isEmpty().withMessage("Shop Name is required"),
+        body("description")
+          .not()
+          .isEmpty()
+          .withMessage("Shop description is required"),
       ];
 
     case "UPDATE":

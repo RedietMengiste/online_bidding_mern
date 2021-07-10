@@ -41,6 +41,10 @@ schema.methods.verifyPassword = async function (
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 
+schema.methods.isSeller = async function (user) {
+  return user.seller && false;
+};
+
 const User = mongoose.model("User", schema);
 
 module.exports = User;
