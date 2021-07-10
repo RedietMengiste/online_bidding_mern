@@ -53,7 +53,9 @@ exports.getProductById = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
-    const product = await Product.findById(req.params.id).populate("shop");
+    const product = await Product.findById(req.params.productId).populate(
+      "shop"
+    );
 
     if (!product) {
       res.status(404).json({
@@ -144,7 +146,7 @@ exports.deleteProduct = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
-    const product = await Product.findByIdAndDelete(req.params.id);
+    const product = await Product.findByIdAndDelete(req.params.productId);
     if (!product) {
       res.status(404).json({
         status: "error",
@@ -171,7 +173,7 @@ exports.getShopAllProducts = async (req, res, next) => {
     const limit = req.query.limit * 1 || 10;
 
     const result = await Product.paginate(
-      { shop: req.params.id },
+      { shop: req.params.shopId },
       { page, limit, sort: "-createdAt" }
     );
     //   .populate("shop", "_id name")
@@ -225,7 +227,9 @@ exports.getRelatedProducts = async (req, res, next) => {
     const page = req.query.page * 1 || 1;
     const limit = req.query.limit * 1 || 5;
 
-    const product = await Product.findById(req.params.id).populate("shop");
+    const product = await Product.findById(req.params.productId).populate(
+      "shop"
+    );
 
     if (!product) {
       res.status(404).json({
@@ -237,7 +241,7 @@ exports.getRelatedProducts = async (req, res, next) => {
     const result = await Product.paginate(
       {
         _id: {
-          $ne: req.params.id,
+          $ne: req.params.productId,
         },
         category: product.category,
       },

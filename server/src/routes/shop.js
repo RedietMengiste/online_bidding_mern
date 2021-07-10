@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.route("/").get(shopController.getAllShops);
 router
-  .route("/:id")
+  .route("/:shopId")
   .get(shopValidation.validate("GET"), shopController.getShop)
   .put(
     verifyUser,
@@ -24,7 +24,7 @@ router
   );
 
 router
-  .route("/by/:id")
+  .route("/by/:userId")
   .post(
     verifyUser,
     userController.isSeller,

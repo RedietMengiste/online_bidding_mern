@@ -21,7 +21,7 @@ router.post(
 );
 
 router
-  .route("/:id")
+  .route("/:userId")
   .get(verifyUser, userController.findUserByID)
   .put(verifyUser, userController.updateUserByID);
 

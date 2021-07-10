@@ -1,11 +1,11 @@
-const { body } = require("express-validator");
+const { body, param } = require("express-validator");
 const mongoose = require("mongoose");
 
 exports.validate = (type) => {
   switch (type) {
     case "GET":
       return [
-        param("id")
+        param("auctionId")
           .custom((value) => {
             return mongoose.Types.ObjectId.isValid(value);
           })
@@ -19,7 +19,7 @@ exports.validate = (type) => {
 
     case "UPDATE":
       return [
-        param("id")
+        param("auctionId")
           .custom((value) => {
             return mongoose.Types.ObjectId.isValid(value);
           })
@@ -39,7 +39,7 @@ exports.validate = (type) => {
 
     case "DELETE":
       return [
-        param("id")
+        param("auctionId")
           .custom((value) => {
             return mongoose.Types.ObjectId.isValid(value);
           })

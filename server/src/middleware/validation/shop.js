@@ -5,7 +5,7 @@ exports.validate = (type) => {
   switch (type) {
     case "GET":
       return [
-        param("id")
+        param("shopId")
           .custom((value) => {
             return mongoose.Types.ObjectId.isValid(value);
           })
@@ -22,7 +22,7 @@ exports.validate = (type) => {
 
     case "UPDATE":
       return [
-        param("id")
+        param("shopId")
           .custom((value) => {
             return mongoose.Types.ObjectId.isValid(value);
           })
@@ -41,7 +41,7 @@ exports.validate = (type) => {
 
     case "DELETE":
       return [
-        param("id")
+        param("shopId")
           .custom((value) => {
             return mongoose.Types.ObjectId.isValid(value);
           })

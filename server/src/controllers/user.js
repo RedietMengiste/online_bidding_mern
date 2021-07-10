@@ -114,7 +114,7 @@ exports.findUserByID = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(req.params.userId);
     if (!user) {
       return res.status("400").json({
         error: "user not found",
@@ -141,7 +141,7 @@ exports.updateUserByID = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+    const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
       new: true,
       populate: "owner",
     });

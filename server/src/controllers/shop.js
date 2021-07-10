@@ -50,7 +50,7 @@ exports.getShop = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
-    const shop = await Shop.findById(req.params.id)
+    const shop = await Shop.findById(req.params.shopId)
       .populate("owner", "_id firstName lastName")
       .exec();
     if (!shop) {
@@ -80,7 +80,7 @@ exports.updateShop = async (req, res, next) => {
       });
     }
 
-    const shop = await Shop.findByIdAndUpdate(req.params.id, req.body, {
+    const shop = await Shop.findByIdAndUpdate(req.params.shopId, req.body, {
       new: true,
       populate: "owner",
     });
@@ -109,7 +109,7 @@ exports.deleteShop = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
-    const shop = await Shop.findByIdAndDelete(req.params.id);
+    const shop = await Shop.findByIdAndDelete(req.params.shopId);
     if (!shop) {
       res.status(404).json({
         status: "error",
@@ -191,7 +191,7 @@ exports.isOwner = async (req, res, next) => {
       });
     }
 
-    const shop = await Shop.findById(req.params.id);
+    const shop = await Shop.findById(req.params.shopId);
     if (!shop) {
       return res.status(404).json({
         status: "error",

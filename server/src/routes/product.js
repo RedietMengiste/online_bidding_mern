@@ -9,7 +9,7 @@ const router = express.Router();
 
 //shopid
 router
-  .route("/by/:id")
+  .route("/by/:shopId")
   .post(
     verifyUser,
     shopController.isOwner,
@@ -20,12 +20,12 @@ router
   .get(productController.getShopAllProducts);
 
 router
-  .route("/:id")
+  .route("/:productId")
   .get(productValidation.validate("GET"), productController.getProductById);
 
 //shopId/productId
 router
-  .route("/:id/:productId")
+  .route("/:shopId/:productId")
   .put(
     verifyUser,
     shopController.isOwner,
@@ -45,7 +45,7 @@ router.route("/any/latest").get(productController.getLatestProducts);
 
 // related
 //id=productid
-router.route("/related/:id").get(productController.getRelatedProducts);
+router.route("/related/:productId").get(productController.getRelatedProducts);
 
 // all
 router.route("/").get(productController.getAllProducts);
