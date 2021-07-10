@@ -13,6 +13,7 @@ dotenv.config();
  */
 const userRouter = require("./routes/user");
 const shopRouter = require("./routes/shop");
+const productRouter = require("./routes/product");
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use(express.static(path.join(__dirname, "../public")));
  */
 app.use("/api/v1/users/", userRouter);
 app.use("/api/v1/shops/", shopRouter);
+app.use("/api/v1/products/", productRouter);
 
 app.use("*", (req, res, next) => {
   res.status(400).json({
