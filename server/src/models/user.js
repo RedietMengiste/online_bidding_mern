@@ -12,6 +12,9 @@ const schema = new mongoose.Schema(
     email: {
       type: String,
     },
+    phonenumber: {
+      type: String,
+    },
     password: {
       type: String,
       select: false,

@@ -192,6 +192,7 @@ exports.isOwner = async (req, res, next) => {
     }
 
     const shop = await Shop.findById(req.params.shopId);
+    
     if (!shop) {
       return res.status(404).json({
         status: "error",

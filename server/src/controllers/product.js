@@ -322,7 +322,9 @@ exports.decreaseProductQuantity = async (req, res, next) => {
     }
 
     next();
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 exports.increaseProductQuantity = async (req, res, next) => {

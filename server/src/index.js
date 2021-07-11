@@ -9,11 +9,18 @@ const mongoose = require("mongoose");
 dotenv.config();
 
 /**
+ * getting the bidding controller and giving it the server
+ */
+const BiddingController = require("./controllers/bidding");
+
+/**
  * route import
  */
 const userRouter = require("./routes/user");
 const shopRouter = require("./routes/shop");
 const productRouter = require("./routes/product");
+const orderRouter = require("./routes/order");
+const auctionRouter = require("./routes/auction");
 
 const app = express();
 
@@ -47,6 +54,8 @@ app.use(express.static(path.join(__dirname, "../public")));
 app.use("/api/v1/users/", userRouter);
 app.use("/api/v1/shops/", shopRouter);
 app.use("/api/v1/products/", productRouter);
+app.use("/api/v1/orders/", orderRouter);
+app.use("/api/v1/auctions/", auctionRouter);
 
 app.use("*", (req, res, next) => {
   res.status(400).json({
@@ -57,6 +66,8 @@ app.use("*", (req, res, next) => {
 
 const PORT = config.port;
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT} successfully`);
 });
+
+BiddingController(server);

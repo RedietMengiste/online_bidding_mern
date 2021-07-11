@@ -12,16 +12,7 @@ exports.validate = (type) => {
           .withMessage("Invalid order ID"),
       ];
     case "CREATE":
-      return [
-        body("customer_name")
-          .not()
-          .isEmpty()
-          .withMessage("customer name is required"),
-        body("customer_email")
-          .not()
-          .isEmpty()
-          .withMessage("customer email is required"),
-      ];
+      return [];
 
     case "UPDATE":
       return [
