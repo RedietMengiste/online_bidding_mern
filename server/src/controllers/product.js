@@ -32,7 +32,7 @@ exports.createProduct = async (req, res, next) => {
     const product = await Product.create({
       ...req.body,
       image: req.file.filename,
-      shop: req.params.id,
+      shop: req.params.shopId,
     });
 
     res.status(200).json({
@@ -92,6 +92,7 @@ exports.getAllProducts = async (req, res, next) => {
     const result = await Product.paginate(
       {},
       {
+        populate:"shop",
         page,
         limit,
         sort: "-createdAt",
@@ -174,7 +175,8 @@ exports.getShopAllProducts = async (req, res, next) => {
 
     const result = await Product.paginate(
       { shop: req.params.shopId },
-      { page, limit, sort: "-createdAt" }
+      {         populate:"shop",
+      page, limit, sort: "-createdAt" }
     );
     //   .populate("shop", "_id name")
     //   .select("-image");

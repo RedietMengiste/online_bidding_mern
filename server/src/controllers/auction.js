@@ -5,7 +5,7 @@ const { validationResult } = require("express-validator");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "../../public/images/products"));
+    cb(null, path.join(__dirname, "../../public/images/auctions"));
   },
   filename: function (req, file, cb) {
     cb(null, `product-${Date.now()}-image${path.extname(file.originalname)}`);
@@ -142,8 +142,11 @@ exports.getAllAuctions = async (req, res, next) => {
     const page = req.query.page * 1 || 1;
     const limit = req.query.limit * 1 || 10;
     const result = await Auction.paginate(
-      {},
       {
+
+      },
+      {
+        populate:"seller bids.bidder",
         page,
         limit,
         sort: "-createdAt",
@@ -201,7 +204,7 @@ exports.getAuctionsBySellerId = async (req, res, next) => {
       {
         seller: req.user._id,
       },
-      {
+      {populate:"seller bids.bidder",
         page,
         limit,
         sort: "bidStart",

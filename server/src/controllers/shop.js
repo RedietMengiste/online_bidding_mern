@@ -139,6 +139,7 @@ exports.getAllShops = async (req, res, next) => {
     const result = await Shop.paginate(
       {},
       {
+        populate:"owner",
         page,
         limit,
         sort: "-createdAt",
@@ -169,7 +170,7 @@ exports.getShopByOwner = async (req, res, next) => {
       {
         owner: req.user._id,
       },
-      { page, limit, sort: "-createdAt" }
+      { populate:"owner",page, limit, sort: "-createdAt" }
     );
 
     res.status(200).json({
@@ -183,23 +184,7 @@ exports.getShopByOwner = async (req, res, next) => {
 
 exports.isOwner = async (req, res, next) => {
   try {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      res.status(400).json({
-        status: "error",
-        message: errors.array()[0].msg,
-      });
-    }
-
     const shop = await Shop.findById(req.params.shopId);
-    
-    if (!shop) {
-      return res.status(404).json({
-        status: "error",
-        message: "Shop with this ID does not exist",
-      });
-    }
-
     const isOwner = await shop.isOwner(shop, req.user);
     if (!isOwner) {
       return res.status("403").json({
