@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const path = require("path");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const http = require("http");
 
 dotenv.config();
 
@@ -23,6 +24,8 @@ const orderRouter = require("./routes/order");
 const auctionRouter = require("./routes/auction");
 
 const app = express();
+
+const server = http.createServer(app);
 
 /**
  * Connection to the database
@@ -66,7 +69,7 @@ app.use("*", (req, res, next) => {
 
 const PORT = config.port;
 
-const server = app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT} successfully`);
 });
 
