@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, "../../public/images/auctions"));
   },
   filename: function (req, file, cb) {
-    cb(null, `product-${Date.now()}-image${path.extname(file.originalname)}`);
+    cb(null, `auction-${Date.now()}-image${path.extname(file.originalname)}`);
   },
 });
 
@@ -27,11 +27,11 @@ exports.createAuction = async (req, res, next) => {
         message: errors.array()[0].msg,
       });
     }
-
+    const userId = req.param("userId");
     const auction = await Auction.create({
       ...req.body,
       image: req.file.filename,
-      seller: req.user._id,
+      seller: userId,
     });
 
     res.status(200).json({
@@ -142,11 +142,9 @@ exports.getAllAuctions = async (req, res, next) => {
     const page = req.query.page * 1 || 1;
     const limit = req.query.limit * 1 || 10;
     const result = await Auction.paginate(
+      {},
       {
-
-      },
-      {
-        populate:"seller bids.bidder",
+        populate: "seller bids.bidder",
         page,
         limit,
         sort: "-createdAt",
@@ -204,11 +202,7 @@ exports.getAuctionsBySellerId = async (req, res, next) => {
       {
         seller: req.user._id,
       },
-      {populate:"seller bids.bidder",
-        page,
-        limit,
-        sort: "bidStart",
-      }
+      { populate: "seller bids.bidder", page, limit, sort: "bidStart" }
     );
 
     res.status(200).json({

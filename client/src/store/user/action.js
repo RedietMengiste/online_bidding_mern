@@ -1,5 +1,5 @@
 import { UserActionTypes } from "./types";
-import axios from "axios"; 
+import axios from "axios";
 
 /**
  * LOGIN ACTION
@@ -64,6 +64,43 @@ export const searchUserSuccess = (users) => ({
 
 export const searchUserError = (error) => ({
   type: UserActionTypes.USERS_SERACH_ERROR,
+  payload: {
+    error,
+  },
+});
+
+export const fetchUserStart = () => ({
+  type: UserActionTypes.FETCH_USER_START,
+});
+
+export const fetchUserSuccess = (user) => ({
+  type: UserActionTypes.FETCH_USER_SUCCESS,
+  payload: {
+    user,
+  },
+});
+
+export const fetchUserError = (error) => ({
+  type: UserActionTypes.FETCH_USER_ERROR,
+  payload: {
+    error,
+  },
+});
+
+export const updateUserStart = () => ({
+  type: UserActionTypes.UPDATE_USER_START,
+});
+
+export const updateUserSuccess = (id, user) => ({
+  type: UserActionTypes.UPDATE_USER_SUCCESS,
+  payload: {
+    id,
+    user,
+  },
+});
+
+export const updateUserError = (error) => ({
+  type: UserActionTypes.UPDATE_USER_ERROR,
   payload: {
     error,
   },
@@ -137,6 +174,52 @@ export const searchUsersAsync = (query) => {
       dispatch(searchUserSuccess(response.data.users));
     } catch (err) {
       dispatch(searchUserError(err));
+    }
+  };
+};
+
+export const fetchUserAsync = (id) => {
+  return async (dispatch, getState) => {
+    const {
+      user: { token },
+    } = getState();
+    try {
+      dispatch(fetchUserStart());
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/users/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      dispatch(fetchUserSuccess(response.data.user));
+    } catch (error) {
+      dispatch(fetchUserError(error));
+    }
+  };
+};
+
+export const updateUserAsync = (id, form) => {
+  return async (dispatch, getState) => {
+    const {
+      user: { token },
+    } = getState();
+    try {
+      dispatch(updateUserStart());
+      const response = await axios.put(
+        `${process.env.REACT_APP_API_URL}/users/${id}`,
+        form,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      dispatch(updateUserSuccess(id, response.data.user));
+      dispatch(fetchUserSuccess(response.data.user));
+    } catch (error) {
+      dispatch(updateUserError(error));
     }
   };
 };

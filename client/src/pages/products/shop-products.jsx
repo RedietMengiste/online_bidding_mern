@@ -11,7 +11,7 @@ import {fetchAllProductsSuccessAsync, fetchProductsByShopSuccessAsync, fetchProd
 
 import { PlusOutlined } from '@ant-design/icons'
 import { Pagination, Spin, Button } from 'antd'
-
+import { fetchUserAsync } from '../../store/user/action';
 
 export const ShopProducts = () => {
     useScript("assets/js/jquery-3.3.1.min.js");
@@ -38,6 +38,7 @@ export const ShopProducts = () => {
     const { user } = useSelector((state)=>state.user)
 
     useEffect(() => {
+        dispatch(fetchUserAsync(user._id));
        dispatch(fetchProductsByShopSuccessAsync(page, limit, shopId))
     }, [])
 
