@@ -34,7 +34,7 @@ export const ShopPage = () => {
     const [isModalOpen, setModal] = useState(false);
 
     const { shops, page, limit, total, fetchShopsLoading} = useSelector((state)=>state.shop)
-    const { user} = useSelector((state)=>state.user)
+    const { user } = useSelector((state)=>state.user)
 
     useEffect(() => {
        dispatch(fetchAllShopsSuccessAsync(page, limit))
@@ -84,7 +84,7 @@ export const ShopPage = () => {
                         </li>
                     </ul>
                     {
-                        user.seller && (
+                        user && user.seller && (
                         <>
                             <div
                                 style={{

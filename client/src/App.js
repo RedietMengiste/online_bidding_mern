@@ -11,6 +11,8 @@ import "./assets/css/magnific-popup.css"
 import "./assets/css/main.css"
 import "./assets/css/nice-select.css"
 import "./assets/css/owl.min.css"
+
+
 import LoginPage from "./pages/login";
 import SignUpPage from "./pages/signup";
 import NotFoundPage from "./pages/not-found";
@@ -22,6 +24,8 @@ import {MyShopPage} from "./pages/shops/my-shops"
 
 import {ProductPage} from "./pages/products"
 import {ShopProducts} from "./pages/products/shop-products"
+
+import { AboutPage } from "./pages/about";
 
 import { AuctionPage } from "./pages/auctions";
 import GuardedRoute from "./components/guarded-route";
@@ -39,6 +43,12 @@ const App = () => {
       <Route path="/signup">
         <SignUpPage />
       </Route>
+
+      <Route exact path="/about">
+        <AboutPage/>
+      </Route>
+     
+
 
 {/* public routes */}
       <Route exact path="/shops">
