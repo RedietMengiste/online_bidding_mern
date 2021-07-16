@@ -5,17 +5,16 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { Navbar } from "../../components/Navbar";
 import useScript from "../../components/scripts/scripts";
-import AddAuction from "../../components/auctions/add-auction.js";
+import Timer from "../../components/auctions/Timer";
 
 import {
   fetchAllAuctionsSuccessAsync,
-  fetchAuctionsByOwnerSuccessAsync,
+  fetchAuctionsByUserSuccessAsync,
   fetchAuctionSuccessAsync,
 } from "../../store/auction/action";
-import { fetchUserAsync } from "../../store/user/action";
 
-import { PlusOutlined } from "@ant-design/icons";
 import { Pagination, Spin, Button } from "antd";
+import { fetchUserAsync } from "../../store/user/action";
 
 const calculateTimeLeft = (date) => {
   const difference = date - new Date();
@@ -35,21 +34,21 @@ const calculateTimeLeft = (date) => {
   return timeLeft;
 };
 
-export const AuctionPage = () => {
-  useScript("assets/js/jquery-3.3.1.min.js");
-  useScript("assets/js/modernizr-3.6.0.min.js");
-  useScript("assets/js/plugins.js");
-  useScript("assets/js/bootstrap.min.js");
-  useScript("assets/js/isotope.pkgd.min.js");
-  useScript("assets/js/wow.min.js");
-  useScript("assets/js/waypoints.js");
-  useScript("assets/js/nice-select.js");
-  useScript("assets/js/counterup.min.js");
-  useScript("assets/js/owl.min.js");
-  useScript("assets/js/magnific-popup.min.js");
-  useScript("assets/js/yscountdown.min.js");
-  useScript("assets/js/jquery-ui.min.js");
-  useScript("assets/js/main.js");
+export const AuctionsPage = () => {
+  useScript("/assets/js/jquery-3.3.1.min.js");
+  useScript("/assets/js/modernizr-3.6.0.min.js");
+  useScript("/assets/js/plugins.js");
+  useScript("/assets/js/bootstrap.min.js");
+  useScript("/assets/js/isotope.pkgd.min.js");
+  useScript("/assets/js/wow.min.js");
+  useScript("/assets/js/waypoints.js");
+  useScript("/assets/js/nice-select.js");
+  useScript("/assets/js/counterup.min.js");
+  useScript("/assets/js/owl.min.js");
+  useScript("/assets/js/magnific-popup.min.js");
+  useScript("/assets/js/yscountdown.min.js");
+  useScript("/assets/js/jquery-ui.min.js");
+  useScript("/assets/js/main.js");
 
   // time left
   const currentDate = new Date();
@@ -59,10 +58,10 @@ export const AuctionPage = () => {
     return (
       !timeLeft.timeEnd && (
         <span>
-          {timeLeft.days != 0 && `${timeLeft.days} d `}
-          {timeLeft.hours != 0 && `${timeLeft.hours} h `}
-          {timeLeft.minutes != 0 && `${timeLeft.minutes} m `}
-          {timeLeft.seconds != 0 && `${timeLeft.seconds} s`} left
+          {timeLeft.days !== 0 && `${timeLeft.days} d `}
+          {timeLeft.hours !== 0 && `${timeLeft.hours} h `}
+          {timeLeft.minutes !== 0 && `${timeLeft.minutes} m `}
+          {timeLeft.seconds !== 0 && `${timeLeft.seconds} s`} left
         </span>
       )
     );
@@ -70,22 +69,90 @@ export const AuctionPage = () => {
 
   const auctionState = (auction) => {
     return (
-      <span>
-        {currentDate < new Date(auction.bidStart) &&
-          `Auction Starts at ${new Date(auction.bidStart).toLocaleString()}`}
-        {currentDate > new Date(auction.bidStart) &&
-          currentDate < new Date(auction.bidEnd) && (
-            <>
-              {`Auction is live | ${auction.bids.length} bids |`}{" "}
-              {showTimeLeft(new Date(auction.bidEnd))}
-            </>
-          )}
-        {currentDate > new Date(auction.bidEnd) &&
-          `Auction Ended | ${auction.bids.length} bids `}
-        {currentDate > new Date(auction.bidStart) &&
-          auction.bids.length > 0 &&
-          ` | Last bid: $ ${auction.bids[0].bid}`}
-      </span>
+      <>
+        <div className={"auction-content"}>
+          <span>
+            {currentDate < new Date(auction.bidStart) && (
+              <>
+                <div className={"title"}>
+                  <div className={"countdown-area text-center"}>
+                    <div className={"cate"} style={{ color: "#440685" }}>
+                      Auction will Start after
+                    </div>
+                    <div className={"countdown"}>
+                      <Timer endTime={auction.bidStart} />
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            {currentDate > new Date(auction.bidStart) &&
+              currentDate < new Date(auction.bidEnd) && (
+                <>
+                  <div className={"title"}>
+                    <div className={"countdown-area text-success text-center"}>
+                      <div>{`Auction is live`}</div>
+                      <br />
+                      <div className={"countdown"}>
+                        <Timer endTime={auction.bidEnd} />
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+            {currentDate > new Date(auction.bidEnd) && (
+              <>
+                <div className={"text-error"}>{`Auction Ended`}</div>
+                <div id={"bid_counter27"} className={"text-center"}>
+                  {new Date(auction.bidEnd).toLocaleDateString()}
+                </div>
+              </>
+            )}
+            {currentDate > new Date(auction.bidStart) &&
+              auction.bids.length > 0 &&
+              ` | Last bid: $ ${auction.bids[0].bid}`}
+          </span>
+          <h6 className={"title"}>
+            <a href="#0">{auction.itemName}</a>
+          </h6>
+          <div className={"bid-area"}>
+            <div className={"bid-amount"}>
+              <div className={"icon"}>
+                <i className={"flaticon-edit"}></i>
+              </div>
+              <div className={"amount-content"}>
+                <div className={"current"}>Bids</div>
+                <div className={"amount"}>{auction.bids.length}</div>
+              </div>
+            </div>
+            <div className={"bid-amount"}>
+              <div className={"icon"}>
+                <i className={"flaticon-money"}></i>
+              </div>
+              <div className={"amount-content"}>
+                <div className={"current"}>Starting Bid</div>
+                <div className={"amount"}>
+                  {auction.bids && auction.bids[0] && auction.bids[0].bid + 1}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={"countdown-area"}>
+            <div className={"countdown"}>
+              <div id="bid_counter27">{auction.endDate}</div>
+            </div>
+            <Link>
+              <span className={"total-bids"}> {auction.seller.firstName}</span>
+            </Link>
+          </div>
+        </div>
+
+        <div className={"text-center"}>
+          <Link to={"/auctions/" + auction._id} className={"custom-button"}>
+            See Auctions
+          </Link>
+        </div>
+      </>
     );
   };
 
@@ -99,16 +166,12 @@ export const AuctionPage = () => {
   const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(fetchUserAsync(user._id));
+    user && dispatch(fetchUserAsync(user._id));
     dispatch(fetchAllAuctionsSuccessAsync(page, limit));
   }, []);
 
   const handlePaginationChange = (page) => {
-    dispatch(fetchAllAuctionsSuccessAsync(page, limit));
-  };
-
-  const handleAuctionClick = (id) => {
-    history.push(`/auctions/${id}/detail`);
+    dispatch(fetchAllAuctionsSuccessAsync(page, limit, user._id));
   };
 
   if (fetchAuctionsLoading || !auctions) {
@@ -167,76 +230,28 @@ export const AuctionPage = () => {
             <h3 className={"title"}>Auctions</h3>
           </div>
           <div className={"row justify-content-center mb-30-none"}>
-            {auctions
-              .slice(
-                auctions.length > 3 ? auctions.length - 3 : auctions.length
-              )
-              .map((auction) => {
-                return (
-                  <div className={"col-sm-10 col-md-6 col-lg-4"}>
-                    <div className={"auction-item-2"}>
-                      <div className={"auction-thumb"}>
-                        <Link>
-                          <img
-                            src={`${process.env.REACT_APP_AUCTION_IMG_URL}/${auction.image}`}
-                            alt={auction.itemName}
-                          />
-                        </Link>
-                      </div>
-                      <div className={"auction-content"}>
-                        <h6 className={"title"}>
-                          <a href="#0">
-                            {auction.itemName} {auctionState(auction)}
-                          </a>
-                        </h6>
-                        <div className={"bid-area"}>
-                          <div className={"bid-amount"}>
-                            <div className={"icon"}>
-                              <i className={"flaticon-auction"}></i>
-                            </div>
-                            <div className={"amount-content"}>
-                              <div className={"current"}>
-                                {auction.description}
-                              </div>
-                              <div className={"amount"}>
-                                {auction.createdAt}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className={"bid-amount"}>
-                            <div className={"icon"}>
-                              <i className={"flaticon-money"}></i>
-                            </div>
-                            <div className={"amount-content"}>
-                              <div className={"current"}>Buy Now</div>
-                              <div className={"amount"}>$5,00.00</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className={"countdown-area"}>
-                          <div className={"countdown"}>
-                            <div id="bid_counter26">auction of </div>
-                          </div>
+            {auctions &&
+              auctions
+                .slice(
+                  auctions.length > 3 ? auctions.length - 3 : auctions.length
+                )
+                .map((auction) => {
+                  return (
+                    <div className={"col-sm-10 col-md-6 col-lg-4"}>
+                      <div className={"auction-item-2"}>
+                        <div className={"auction-thumb"}>
                           <Link>
-                            <span className={"total-bids"}>
-                              Shop - {auction.shop.name}
-                            </span>
+                            <img
+                              src={`${process.env.REACT_APP_AUCTION_IMG_URL}/${auction.image}`}
+                              alt={auction.name}
+                            />
                           </Link>
                         </div>
-                        <div className={"text-center"}>
-                          <Link
-                            to={"/auctions/" + auction._id}
-                            className={"custom-button"}
-                          >
-                            See Auctions
-                          </Link>
-                        </div>
+                        {auctionState(auction)}
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
           </div>
         </div>
       </section>
@@ -270,54 +285,7 @@ export const AuctionPage = () => {
                         />
                       </Link>
                     </div>
-                    <div className={"auction-content"}>
-                      <h6 className={"title"}>
-                        <a href="#0">{auction.itemName}</a>
-                      </h6>
-                      <div className={"bid-area"}>
-                        <div className={"bid-amount"}>
-                          <div className={"icon"}>
-                            <i className={"flaticon-edit"}></i>
-                          </div>
-                          <div className={"amount-content"}>
-                            <div className={"current"}>Bids</div>
-                            <div className={"amount"}>
-                              {auction.bids.length}
-                            </div>
-                          </div>
-                        </div>
-                        <div className={"bid-amount"}>
-                          <div className={"icon"}>
-                            <i className={"flaticon-money"}></i>
-                          </div>
-                          <div className={"amount-content"}>
-                            <div className={"current"}>Starting Bid</div>
-                            <div className={"amount"}>
-                              {auction.startingBid}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className={"countdown-area"}>
-                        <div className={"countdown"}>
-                          <div id="bid_counter27">{auction.endDate}</div>
-                        </div>
-                        <Link>
-                          <span className={"total-bids"}>
-                            {" "}
-                            {auction.seller.firstName}
-                          </span>
-                        </Link>
-                      </div>
-                      <div className={"text-center"}>
-                      <Link
-                            to={"/auctions/" + auction._id}
-                            className={"custom-button"}
-                          >
-                            See Auctions
-                          </Link>
-                      </div>
-                    </div>
+                    {auctionState(auction)}
                   </div>
                 </div>
               );
@@ -340,7 +308,6 @@ export const AuctionPage = () => {
           </div>
         </div>
       </div>
-      <AddAuction isOpen={isModalOpen} onClose={() => setModal(false)} />
     </>
   );
 };

@@ -25,7 +25,7 @@ import { MyShopPage } from "./pages/shops/my-shops";
 import { ProductPage } from "./pages/products";
 import { ShopProducts } from "./pages/products/shop-products";
 
-import { AuctionPage } from "./pages/auctions";
+import { AuctionsPage } from "./pages/auctions";
 import { DetailAuctionPage } from "./pages/auctions/detail-auction";
 import { MyAuctionsPage } from "./pages/auctions/my-auction";
 
@@ -54,7 +54,7 @@ const App = () => {
 
       {/* auction routes */}
       <Route exact path="/auctions">
-        <AuctionPage />
+        <AuctionsPage />
       </Route>
       <GuardedRoute exact path="/auctions/:auctionId">
         <DetailAuctionPage />

@@ -72,6 +72,51 @@ export const MyAuctionsPage = () => {
     return (
       <>
         <div className={"auction-content"}>
+          <span>
+            {currentDate < new Date(auction.bidStart) && (
+              <>
+                <div className={"title"}>
+                  <div className={"countdown-area text-center"}>
+                    <div className={"cate"} style={{ color: "#440685" }}>
+                      Auction will Start at
+                    </div>
+                    <div className={"countdown"}>
+                      <div id={"bid_counter28"} className={"text-center"}>
+                        {new Date(auction.bidStart).toISOString()}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+            {currentDate > new Date(auction.bidStart) &&
+              currentDate < new Date(auction.bidEnd) && (
+                <>
+                  <div className={"title"}>
+                    <div className={"countdown-area text-success text-center"}>
+                      <div>{`Auction is live`}</div>
+                      <br />
+                      <div className={"countdown"}>
+                        <div id={"bid_counter27"} className={"text-center"}>
+                          {new Date(auction.bidEnd).toISOString()}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+            {currentDate > new Date(auction.bidEnd) && (
+              <>
+                <div className={"text-error"}>{`Auction Ended`}</div>
+                <div id={"bid_counter27"} className={"text-center"}>
+                  {new Date(auction.bidEnd).toLocaleDateString()}
+                </div>
+              </>
+            )}
+            {currentDate > new Date(auction.bidStart) &&
+              auction.bids.length > 0 &&
+              ` | Last bid: $ ${auction.bids[0].bid}`}
+          </span>
           <h6 className={"title"}>
             <a href="#0">{auction.itemName}</a>
           </h6>
@@ -103,36 +148,13 @@ export const MyAuctionsPage = () => {
               <span className={"total-bids"}> {auction.seller.firstName}</span>
             </Link>
           </div>
-          <div className={"text-center"}>
-            <Link to={"/auctions/" + auction._id} className={"custom-button"}>
-              See Auctions
-            </Link>
-          </div>
         </div>
 
-        <span>
-          {currentDate < new Date(auction.bidStart) && (
-            <>
-              <div>
-                {`Auction will Start at ${new Date(
-                  auction.bidStart
-                ).toLocaleString()}`}
-              </div>
-            </>
-          )}
-          {currentDate > new Date(auction.bidStart) &&
-            currentDate < new Date(auction.bidEnd) && (
-              <>
-                {`Auction is live | ${auction.bids.length} bids |`}{" "}
-                {showTimeLeft(new Date(auction.bidEnd))}
-              </>
-            )}
-          {currentDate > new Date(auction.bidEnd) &&
-            `Auction Ended | ${auction.bids.length} bids `}
-          {currentDate > new Date(auction.bidStart) &&
-            auction.bids.length > 0 &&
-            ` | Last bid: $ ${auction.bids[0].bid}`}
-        </span>
+        <div className={"text-center"}>
+          <Link to={"/auctions/" + auction._id} className={"custom-button"}>
+            See Auctions
+          </Link>
+        </div>
       </>
     );
   };
@@ -147,7 +169,7 @@ export const MyAuctionsPage = () => {
   const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(fetchUserAsync(user._id));
+    user && dispatch(fetchUserAsync(user._id));
     dispatch(fetchAuctionsByUserSuccessAsync(page, limit, user._id));
   }, []);
 
@@ -190,10 +212,10 @@ export const MyAuctionsPage = () => {
             </li>
 
             <li>
-              <span>Auctions</span>
+              <span>My Auctions</span>
             </li>
           </ul>
-          {user.seller && (
+          {user && user.seller && (
             <>
               <div
                 style={{
@@ -235,79 +257,28 @@ export const MyAuctionsPage = () => {
             <h3 className={"title"}>Auctions</h3>
           </div>
           <div className={"row justify-content-center mb-30-none"}>
-            {auctions
-              .slice(
-                auctions.length > 3 ? auctions.length - 3 : auctions.length
-              )
-              .map((auction) => {
-                return (
-                  <div className={"col-sm-10 col-md-6 col-lg-4"}>
-                    <div className={"auction-item-2"}>
-                      <div className={"auction-thumb"}>
-                        <Link>
-                          <img
-                            src={`${process.env.REACT_APP_AUCTION_IMG_URL}/${auction.image}`}
-                            alt={auction.itemName}
-                          />
-                        </Link>
-                      </div>
-                      <div className={"auction-content"}>
-                        <h6 className={"title"}>
-                          <a href="#0">
-                            {auction.itemName} {auctionState(auction)}
-                          </a>
-                        </h6>
-                        <div className={"bid-area"}>
-                          <div className={"bid-amount"}>
-                            <div className={"icon"}>
-                              <i className={"flaticon-auction"}></i>
-                            </div>
-                            <div className={"amount-content"}>
-                              <div className={"current"}>
-                                {auction.description}
-                              </div>
-                              <div className={"amount"}>
-                                {auction.createdAt}
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className={"bid-amount"}>
-                            <div className={"icon"}>
-                              <i className={"flaticon-money"}></i>
-                            </div>
-                            <div className={"amount-content"}>
-                              <div className={"current"}>Buy Now</div>
-                              <div className={"amount"}>$5,00.00</div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className={"countdown-area"}>
-                          <div className={"countdown"}>
-                            <div id="bid_counter26">auction of </div>
-                          </div>
+            {auctions &&
+              auctions
+                .slice(
+                  auctions.length > 3 ? auctions.length - 3 : auctions.length
+                )
+                .map((auction) => {
+                  return (
+                    <div className={"col-sm-10 col-md-6 col-lg-4"}>
+                      <div className={"auction-item-2"}>
+                        <div className={"auction-thumb"}>
                           <Link>
-                            <span className={"total-bids"}>
-                              Seller -{" "}
-                              {auction.seller.firstName +
-                                " " +
-                                auction.seller.lastName}
-                            </span>
+                            <img
+                              src={`${process.env.REACT_APP_AUCTION_IMG_URL}/${auction.image}`}
+                              alt={auction.name}
+                            />
                           </Link>
                         </div>
-                        <div className={"text-center"}>
-                          <Link
-                            to={"/auctions/" + auction._id}
-                            className={"custom-button"}
-                          >
-                            See Auctions
-                          </Link>
-                        </div>
+                        {auctionState(auction)}
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
           </div>
         </div>
       </section>
@@ -329,23 +300,27 @@ export const MyAuctionsPage = () => {
           </div>
 
           <div className={"row mb-30-none justify-content-center"}>
-            {auctions.map((auction) => {
-              return (
-                <div className={"col-sm-10 col-md-6 col-lg-4"}>
-                  <div className={"auction-item-2"}>
-                    <div className={"auction-thumb"}>
-                      <Link>
-                        <img
-                          src={`${process.env.REACT_APP_AUCTION_IMG_URL}/${auction.image}`}
-                          alt={auction.name}
-                        />
-                      </Link>
+            {auctions ? (
+              auctions.map((auction) => {
+                return (
+                  <div className={"col-sm-10 col-md-6 col-lg-4"}>
+                    <div className={"auction-item-2"}>
+                      <div className={"auction-thumb"}>
+                        <Link>
+                          <img
+                            src={`${process.env.REACT_APP_AUCTION_IMG_URL}/${auction.image}`}
+                            alt={auction.name}
+                          />
+                        </Link>
+                      </div>
+                      {auctionState(auction)}
                     </div>
-                    {auctionState(auction)}
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            ) : (
+              <div classname={"title"}>No auctions</div>
+            )}
           </div>
           <div
             style={{

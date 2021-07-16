@@ -25,8 +25,6 @@ const auctionRouter = require("./routes/auction");
 
 const app = express();
 
-const server = http.createServer(app);
-
 /**
  * Connection to the database
  */
@@ -69,7 +67,7 @@ app.use("*", (req, res, next) => {
 
 const PORT = config.port;
 
-server.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Server started on PORT ${PORT} successfully`);
 });
 

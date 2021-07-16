@@ -11,12 +11,17 @@ const BiddingController = (server) => {
   io.on("connection", function (socket) {
     socket.on("join auction room", (data) => {
       socket.join(data.room);
+      console.log("join auction room==============================");
     });
     socket.on("leave auction room", (data) => {
       socket.leave(data.room);
+      console.log("leave auction room==============================");
     });
     socket.on("new bid", (data) => {
       bid(data.bidInfo, data.room);
+      console.log(
+        "new bid===================================================="
+      );
     });
   });
 

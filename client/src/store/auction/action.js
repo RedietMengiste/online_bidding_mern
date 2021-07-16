@@ -34,9 +34,10 @@ export const fetchAuctionStart = () => ({
   type: AuctionActionTypes.AUCTION_FETCH_START,
 });
 
-export const fetchAuctionSuccess = (auction) => ({
+export const fetchAuctionSuccess = (id, auction) => ({
   type: AuctionActionTypes.AUCTION_FETCH_SUCCESS,
   payload: {
+    id,
     auction,
   },
 });
@@ -160,7 +161,7 @@ export const updateAuctionSuccessAsync = (id, form) => {
     try {
       dispatch(updateAuctionStart());
       const response = await axios.put(
-        `${process.env.REACT_APP_API_URL}/auction/${id}`,
+        `${process.env.REACT_APP_API_URL}/auctions/${id}`,
         form,
         {
           headers: {
@@ -212,7 +213,7 @@ export const fetchAuctionSuccessAsync = (id) => {
           },
         }
       );
-      dispatch(fetchAuctionSuccess(response.data.auction));
+      dispatch(fetchAuctionSuccess(id, response.data.auction));
     } catch (error) {
       dispatch(fetchAuctionError(error));
     }

@@ -29,6 +29,7 @@ const schema = new mongoose.Schema(
     startingBid: { type: Number, default: 0 },
     bids: [
       {
+        _id: { select: false },   
         bidder: { type: mongoose.Schema.ObjectId, ref: "User" },
         bid: Number,
         time: Date,

@@ -43,7 +43,7 @@ export const ShopPage = () => {
   const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(fetchUserAsync(user._id));
+    user && dispatch(fetchUserAsync(user._id));
     dispatch(fetchAllShopsSuccessAsync(page, limit));
   }, []);
 
@@ -89,7 +89,7 @@ export const ShopPage = () => {
               <span>Shops</span>
             </li>
           </ul>
-          {user.seller && (
+          {user && user.seller && (
             <>
               <div
                 style={{

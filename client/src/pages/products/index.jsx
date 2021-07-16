@@ -43,7 +43,7 @@ export const ProductPage = () => {
   const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(fetchUserAsync(user._id));
+    user && dispatch(fetchUserAsync(user._id));
     dispatch(fetchAllProductsSuccessAsync(page, limit));
   }, []);
 
