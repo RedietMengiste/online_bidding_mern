@@ -132,7 +132,7 @@ export const loginAsync = (email, password) => {
   };
 };
 
-export const signUpAsync = (firstName, lastName, email, password) => {
+export const signUpAsync = (firstName, lastName, email, phonenumber,password) => {
   return async (dispatch, getState) => {
     dispatch(signUpStart());
     try {
@@ -142,6 +142,7 @@ export const signUpAsync = (firstName, lastName, email, password) => {
           firstName,
           lastName,
           email,
+          phonenumber,
           password,
         }
       );

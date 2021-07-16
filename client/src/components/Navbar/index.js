@@ -14,74 +14,84 @@ export const Navbar = () => {
     }
 
     return (
+        
     
     <header>
         
         <div className={"header-bottom"}>
-            <div className={"container"}>
+            <div className={"container-fluid"}>
                 <div className={"header-wrapper"}>
                     <div className={"logo"}>
                         <Link >
-                            <img src={logo} alt="logo"/>
+                            <img src={logo}style={{marginLeft:'50px'}} alt="logo"/>
                         </Link>
                     </div>
-                    <ul className={"menu ml-auto"}>
+                    <ul className={"menu"} style={{marginRight:'50px'}}>
+                    {/* <form className={"search-form"}>
+                        <input type="text" placeholder="Search for brand, model...."/>
+                        <button type="submit"><i className={"fas fa-search"}></i></button>
+                    </form>
+                    <div className={"search-bar d-md-none"}>
+                        <Link href="#0"><i className={"fas fa-search"}></i></Link>
+                    </div> */}
                         <li>
-                            <Link >Home</Link>
+                            <Link to='/' >Home</Link>
 
                         </li>
                         <li>
                             <Link to='/shops'>Shops</Link>
                         </li>
                         <li>
-                            <Link >Auction</Link>
+                            <Link to= '/auctions'>Auction</Link>
                         </li>
                      
                         <li>
-                            <Link >Contact</Link>
+                            <Link to='/about'> About</Link>
                         </li>
-                    </ul>
-                    <form className={"search-form"}>
-                        <input type="text" placeholder="Search for brand, model...."/>
-                        <button type="submit"><i className={"fas fa-search"}></i></button>
-                    </form>
-                    <div className={"search-bar d-md-none"}>
-                        <Link href="#0"><i className={"fas fa-search"}></i></Link>
-                    </div>
+                    
+                   
                     <div className={"header-bar d-lg-none"}>
                         <span></span>
                         <span></span>
                         <span></span>
                     </div>
+                    
 
                     {
                         token && (
-                        <span>{
+                        <li>
+                            {
                             user.seller && (<>
-                            <Link to={'/shops/'+user._id} className={"user-button"}><i className={"flaticon-basket"}></i>My shops</Link>
-                            <Link to={'/auctions/'+user._id} className={"user-button"}><i className={"flaticon-user"}></i>My auctions</Link>
+                            <Link to={'/shops/'+user._id} className={"user-button"}>My shops</Link>
+                            <Link to={'/auctions/'+user._id} className={"user-button"}>My auctions</Link>
                             </>)
                             }
-                            <Link>{user.firstName + user.lastName}</Link>
-                            <button className={"custom-button yellow btn-sm"} onClick={onLogout}>logout</button></span>
+                            
+                            <Link to={'/users/'+user._id} >{user.firstName}&nbsp;{user.lastName}</Link>
+                            
+                           <Link className={"normal-button"} style={{width:'120px',height:'50px', paddingTop:'2px' ,paddingLeft:'35px'}} onClick={onLogout}>logout</Link></li>
                         )
 
                     }
 {
                         !token && (
-                        <span>
+                        <li>
+                        
                             <Link to="/login">Sign in</Link>
-                            <Link to="/signup">Sign up</Link></span>
+                            <Link to="/signup">Sign up</Link></li>
                         )
                         
                     }
-                    <ul className={"cart-button-area"}>
+                    
+                    {/* <ul className={"cart-button-area"}>
                         <li>
                             <Link className={"cart-button"}><i className={"flaticon-shopping-basket"}></i><span className={"amount"}>08</span></Link>
                         </li>                        
                         <li>
                             <Link className={"user-button"}><i className={"flaticon-user"}></i></Link>
                         </li>                        
+                    </ul> */}
+                     
                     </ul>
                 </div>
             </div>

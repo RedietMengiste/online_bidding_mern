@@ -16,6 +16,7 @@ import {
 import { PlusOutlined } from "@ant-design/icons";
 import { Pagination, Spin, Button } from "antd";
 import { fetchUserAsync } from "../../store/user/action";
+import { fetchAllProductsSuccessAsync } from "../../store/product/action";
 
 export const ShopPage = () => {
   useScript("/assets/js/modernizr-3.6.0.min.js");
@@ -47,8 +48,9 @@ export const ShopPage = () => {
     dispatch(fetchAllShopsSuccessAsync(page, limit));
   }, []);
 
-  const handlePaginationChange = (page) => {
-    dispatch(fetchAllShopsSuccessAsync(page, limit));
+
+  const handlePaginationChange = (page)=>{
+    dispatch(fetchAllProductsSuccessAsync(page,limit));
   };
 
   const handleShopClick = (id) => {
