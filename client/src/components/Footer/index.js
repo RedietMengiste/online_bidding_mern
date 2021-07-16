@@ -5,7 +5,10 @@ export const Footer = () => {
 
     return (
     
-        <footer className={"bg_img padding-top oh"} data-background="assets/images/footer/footer-bg.jpg">
+        <footer className={"bg_img padding-top oh"} data-background="assets/images/footer/footer-bg.jpg"  style={{
+            backgroundImage:
+              "url(http://pixner.net/sbidu/main/assets/images/footer/footer-bg.jpg)",
+          }}>
         <div className={"footer-top-shape"}>
             <img src="assets/css/img/footer-top-shape.png" alt="css"/>
         </div>

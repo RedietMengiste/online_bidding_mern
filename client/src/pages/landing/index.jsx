@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Navbar } from '../../components/Navbar'
 import {Footer} from '../../components/Footer'
 import  useScript from '../../components/scripts/scripts'
@@ -18,6 +18,13 @@ export const LandingPage = () => {
     useScript("/assets/js/yscountdown.min.js")
     useScript("/assets/js/jquery-ui.min.js")
     useScript("/assets/js/main.js")
+
+    // useEffect(() => {
+    //     if(!window.location.hash) {
+    //         window.location = window.location + '#home';
+    //         window.location.reload(false);
+    //     }
+    // }, [])
     
     return (
         <>
@@ -26,7 +33,12 @@ export const LandingPage = () => {
     <a href="#0" className={"scrollToTop"}><i className={"fas fa-angle-up"}></i></a>
 
     <div className={"overlay"}></div>
-            <section className={"banner-section bg_img"} data-background="/assets/images/banner/banner-bg-1.png">
+    
+            <section className={"banner-section bg_img"}  style={{
+            backgroundImage:
+              "url(http://pixner.net/sbidu/main/assets/images/banner/banner-bg-1.png)",
+          }}
+          data-background="http://pixner.net/sbidu/main/assets/images/banner/banner-bg-1.png">
                 <div className={"container"}>
                 <div className={"row align-items-center justify-content-between"}>
                     <div className={"col-lg-6 col-xl-6"}>
@@ -339,5 +351,5 @@ export const LandingPage = () => {
     </section>
     <Footer/>
     </>
-    )
-}
+  );
+};

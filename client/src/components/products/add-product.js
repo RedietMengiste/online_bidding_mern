@@ -6,20 +6,20 @@ import { Modal, Form, Input, Button, Upload, Typography, message } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 import {
-    createProductSuccessAsync,
-    clearCreateProductSuccess,
-    fetchProductsByShopSuccessAsync
-} from "../../store/product/action"
+  createProductSuccessAsync,
+  clearCreateProductSuccess,
+  fetchProductsByShopSuccessAsync,
+} from "../../store/product/action";
 
-const AddProduct =({isOpen, onClose}) =>{
-  const {shopId} = useParams();
+const AddProduct = ({ isOpen, onClose }) => {
+  const { shopId } = useParams();
   const dispatch = useDispatch();
-  const { products, page, limit, total, fetchProductsLoading } = useSelector((state)=>state.product)
-
-
-  const { createProductLoading, createProductError, createProductSuccess } = useSelector(
+  const { products, page, limit, total, fetchProductsLoading } = useSelector(
     (state) => state.product
   );
+
+  const { createProductLoading, createProductError, createProductSuccess } =
+    useSelector((state) => state.product);
   const [form, setForm] = useState({
     file: null,
     fileList: [],
@@ -35,8 +35,7 @@ const AddProduct =({isOpen, onClose}) =>{
       message.success("Product created successfuly");
       onClose();
       dispatch(clearCreateProductSuccess());
-      dispatch(fetchProductsByShopSuccessAsync(page, limit, shopId))
-
+      dispatch(fetchProductsByShopSuccessAsync(page, limit, shopId));
     }
   }, [createProductSuccess]);
 
@@ -168,6 +167,6 @@ const AddProduct =({isOpen, onClose}) =>{
       </Modal>
     </>
   );
-}
+};
 
 export default AddProduct;

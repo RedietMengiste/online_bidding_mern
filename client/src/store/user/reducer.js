@@ -6,12 +6,18 @@ const INITIAL_STATE = {
   loginLoading: false,
   signUpLoading: false,
   searchUsersLoading: false,
+  fetchUserLoading: false,
+  updateUserLoading: false,
+  fetchUserSuccess: false,
+  updateUserSuccess: false,
   users: null,
   user: null,
   token: null,
   searchUsersError: null,
   signUpError: null,
   loginError: null,
+  fetchUserError: null,
+  updateUserError: null,
   ...JSON.parse(authCookies),
 };
 
@@ -89,7 +95,46 @@ const reducer = (state = INITIAL_STATE, action) => {
         searchUsersLoading: false,
         searchUsersError: action.payload.error,
       };
+    case UserActionTypes.FETCH_USER_START:
+      return {
+        ...state,
+        fetchUserLoading: true,
+        fetchUserError: null,
+      };
 
+    case UserActionTypes.FETCH_USER_SUCCESS:
+      return {
+        ...state,
+        fetchUserLoading: false,
+        user: action.payload.user,
+      };
+
+    case UserActionTypes.FETCH_USER_ERROR:
+      return {
+        ...state,
+        fetchUserLoading: false,
+        fetchUserError: action.payload.error,
+      };
+    case UserActionTypes.UPDATE_USER_START:
+      return {
+        ...state,
+        updateUserLoading: true,
+        updateUserError: null,
+      };
+
+    case UserActionTypes.UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        updateUserLoading: false,
+        user: { ...state.user, [action.payload.id]: action.payload.user },
+      };
+
+    case UserActionTypes.UPDATE_USER_ERROR:
+      return {
+        ...state,
+        updateUserLoading: false,
+        updateUserError: action.payload.error,
+      };
     case UserActionTypes.LOG_OUT:
       Cookies.remove("AUTH");
       return {

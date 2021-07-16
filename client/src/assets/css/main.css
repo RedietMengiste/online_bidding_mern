@@ -6267,14 +6267,14 @@ div[class*="auction"] .custom-button {
 
 /*Team Section Starts Here*/
 .team-item {
-  max-width: 220px;
+  max-width: 290px;
   margin: 0 auto 30px;
-  padding: 0 15px;
+  padding: 0 5px;
 }
 
 .team-item .team-inner {
   position: relative;
-  padding: 0 10px;
+  padding: 0 15px;
 }
 
 .team-item .team-inner::before {
@@ -6308,7 +6308,7 @@ div[class*="auction"] .custom-button {
 }
 
 .team-item .team-inner .team-content {
-  padding: 15px 10px 5px;
+  padding: 20px 10px 5px;
   text-align: center;
 }
 
@@ -6323,16 +6323,16 @@ div[class*="auction"] .custom-button {
 .team-item .team-inner .team-content .social li a {
   color: #52606d;
   padding: 5px;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1;
 }
 
 .team-item .team-inner .team-content .social li a:hover {
-  color: #ee4730;
+  color: #440685;
 }
 
 .team-item .team-inner .team-content .social li:nth-child(even) a {
-  color: #ee4730;
+  color: #440685;
 }
 
 /*Overview Section Starts Here*/

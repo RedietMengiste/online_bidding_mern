@@ -67,7 +67,7 @@ export const Navbar = () => {
                             </>)
                             }
                             
-                            <Link>{user.firstName}&nbsp;{user.lastName}</Link>
+                            <Link to={'/users/'+user._id} >{user.firstName}&nbsp;{user.lastName}</Link>
                             
                            <Link className={"normal-button"} style={{width:'120px',height:'50px', paddingTop:'2px' ,paddingLeft:'35px'}} onClick={onLogout}>logout</Link></li>
                         )

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Navbar } from '../../components/Navbar'
 import {Footer} from '../../components/Footer'
 import  useScript from '../../components/scripts/scripts'
@@ -21,19 +22,41 @@ export const AboutPage = () => {
     
     return (
         <>
+        <a href="#0" className={"scrollToTop"}><i className={"fas fa-angle-up"}></i></a>
+    
     <Navbar/>
-     
-    <a href="#0" className={"scrollToTop"}><i className={"fas fa-angle-up"}></i></a>
+    <div className={"hero-section"}>
+        <div className={"container"}>
+            <ul className={"breadcrumb"}>
+                <li>
+                    <Link to='/'>Home</Link>
+                </li>
+                
+                <li>
+                    <span>About Us</span>
+                </li>
+            </ul>
+        </div>
+        <div
+          className={"bg_img hero-bg bottom_center"}
+          style={{
+            backgroundImage:
+              "url(http://pixner.net/sbidu/main/assets/images/banner/hero-bg.png)",
+          }}
+          data-background="http://pixner.net/sbidu/main/assets/images/banner/hero-bg.png"
+        ></div>
+    </div>
 
+    
     <section className={"about-section"}>
         <div className={"container"}>
             <div className={"about-wrapper mt--100 mt-lg--440 padding-top"}>
                 <div className={"row"}>
                     <div className={"col-lg-7 col-xl-6"}>
                         <div className={"about-content"}>
-                            <h4 className={"subtitle"}>About Us</h4>
-                            <h2 className={"title"}><span className={"d-block"}>OVER 60</span> YEARS EXPERIENCE</h2>
-                            <p>Innovation have made us leaders in auctions platform</p>
+                            <h4 className={"subtitle"}>About E-Gebeya</h4>
+                            <h2 className={"title"}><span className={"d-block"}>REAL DEAL</span> BIDDING WEBSITE</h2>
+                            <p>Innovation have made us leaders in auctions platform!</p>
                             <div className={"item-area"}>
                                 <div className={"item"}>
                                     <div className={"thumb"}>
@@ -57,7 +80,7 @@ export const AboutPage = () => {
             </div>
         </div>
     </section>
-    <section className={"overview-section padding-top"}>
+    <section className={"overview-section padding-top m-5 p-4"}>
         <div className={"container mw-lg-100 p-lg-0"}>
             <div className={"row m-0"}>
                 <div className={"col-lg-6 p-0"}>
@@ -131,27 +154,23 @@ export const AboutPage = () => {
                     </div>
                 </div>
                 <div className={"col-lg-6 pl-30 pr-0"}>
-                    <div className={"w-100 h-100 bg_img"} data-background="/assets/images/overview/overview-bg.png"></div>
+                    <div className={"w-100 h-100 bg_img"} data-background="/assets/images/banner/banner-1.png"  style={{
+            backgroundImage:
+              "url(http://pixner.net/sbidu/main/assets/images/banner/banner-1.png)",
+          }}></div>
                 </div>
             </div>
         </div>
     </section>
-    <section className={"call-in-section padding-top"}>
-        <div className={"container"}>
-            <div className={"call-wrapper cl-white bg_img"} data-background="/assets/images/call-in/call-bg.png">
-                <div className={"section-header"}>
-                    <h3 className={"title"}>Register for Free & Start Bidding Now!</h3>
-                    <p>From cars to diamonds to iPhones, we have it all.</p>
-                </div>
-                <a href="sign-up.html" className={"custom-button white"}>Register</a>
-            </div>
-        </div>
-    </section>
+   
     
-<section className={"team-section section-bg padding-top padding-bottom"}>
+<section className={"team-section padding-top padding-bottom"} style={{backgroundImage:`url(/assets/images/auction/realstate/real-bg.png)`,repeat:'none'}}>
+
         <div className={"container"}>
+            
             <div className={"section-header"}>
-                <h2 className={"title"}>Meet the Management Team</h2>
+                
+                <h2 className={"title"}>Dedicated Developers</h2>
                 <p>Our team consists of passionate and talented individuals invested in your success.</p>
             </div>
             <div className={"team-wrapper row justify-content-between"}>
@@ -159,11 +178,11 @@ export const AboutPage = () => {
                     <div className={"team-inner"}>
                         <div className={"team-thumb"}>
                             <a href="#0">
-                                <img src="/assets/images/team/team1.png" alt="team"/>
+                                <img src="/assets/images/about/abi.jpg" alt="team"/>
                             </a>
                         </div>
                         <div className={"team-content"}>
-                            <h6 className={"title"}><a href="#0">Kent Quinn</a></h6>
+                            <h6 className={"title"}><a href="#0">Abenezer Atnafu</a></h6>
                             <ul className={"social"}>
                                 <li>
                                     <a href="#0"><i className={"fab fa-facebook-f"}></i></a>
@@ -182,11 +201,11 @@ export const AboutPage = () => {
                     <div className={"team-inner"}>
                         <div className={"team-thumb"}>
                             <a href="#0">
-                                <img src="/assets/images/team/team2.png" alt="team"/>
+                                <img src="/assets/images/about/red.jpg" alt="team"/>
                             </a>
                         </div>
                         <div className={"team-content"}>
-                            <h6 className={"title"}><a href="#0">Dustin Day</a></h6>
+                            <h6 className={"title"}><a href="#0">Rediet Mengiste</a></h6>
                             <ul className={"social"}>
                                 <li>
                                     <a href="#0"><i className={"fab fa-facebook-f"}></i></a>
@@ -204,8 +223,22 @@ export const AboutPage = () => {
                
             </div>
         </div>
-        
+        <div className={"call-in-section padding-top"}>
+        <div className={"container"}>
+            <div className={"call-wrapper cl-white bg_img"} data-background="/assets/images/call-in/call-bg.png"  style={{
+            backgroundImage:
+              "url(http://pixner.net/sbidu/main/assets/images/call-in/call-bg.png)",
+          }}>
+                <div className={"section-header"}>
+                    <h3 className={"title"}>Register for Free & Start Bidding Now!</h3>
+                    <p>From cars to diamonds to iPhones, we have it all.</p>
+                </div>
+                <a href="sign-up.html" className={"custom-button white"}>Register</a>
+            </div>
+        </div>
+    </div>
     </section>
+    
     <Footer/>
     </>
     )

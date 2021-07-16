@@ -7,7 +7,9 @@ const router = express.Router();
 router.route("/any/allAuctions").get(auctionController.getAllAuctions);
 router.route("/any/openAuctions").get(auctionController.getOpenAuctions);
 
-router.route("/bid/:userId").get(verifyUser, auctionController.getAuctionsByBidderId);
+router
+  .route("/bid/:userId")
+  .get(verifyUser, auctionController.getAuctionsByBidderId);
 
 router
   .route("/:auctionId")

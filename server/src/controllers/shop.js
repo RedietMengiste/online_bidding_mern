@@ -38,7 +38,9 @@ exports.createShop = async (req, res, next) => {
       status: "success",
       shop,
     });
-  } catch (err) {}
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 exports.getShop = async (req, res, next) => {
@@ -185,6 +187,14 @@ exports.getShopByOwner = async (req, res, next) => {
 exports.isOwner = async (req, res, next) => {
   try {
     const shop = await Shop.findById(req.params.shopId);
+
+    if (!shop) {
+      return res.status(404).json({
+        status: "error",
+        message: "Shop with this ID does not exist",
+      });
+    }
+
     const isOwner = await shop.isOwner(shop, req.user);
     if (!isOwner) {
       return res.status("403").json({

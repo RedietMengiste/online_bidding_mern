@@ -5,8 +5,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginAsync } from "../../store/user/action";
 import { Navbar } from "../../components/Navbar";
 import { Footer } from "../../components/Footer";
+import useScript from "../../components/scripts/scripts";
 
 const Login = () => {
+  useScript("/assets/js/jquery-3.3.1.min.js")
+  useScript("/assets/js/modernizr-3.6.0.min.js")
+  useScript("/assets/js/plugins.js")
+  useScript("/assets/js/bootstrap.min.js")
+  useScript("/assets/js/isotope.pkgd.min.js")
+  useScript("/assets/js/wow.min.js")
+  useScript("/assets/js/waypoints.js")
+  useScript("/assets/js/nice-select.js")
+  useScript("/assets/js/counterup.min.js")
+  useScript("/assets/js/owl.min.js")
+  useScript("/assets/js/magnific-popup.min.js")
+  useScript("/assets/js/yscountdown.min.js")
+  useScript("/assets/js/jquery-ui.min.js")
+  useScript("/assets/js/main.js")
+
   const dispatch = useDispatch();
   const history = useHistory();
   const { loginLoading, loginError, token } = useSelector(

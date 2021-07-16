@@ -1,19 +1,41 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Modal, Form, Input, Button, Upload, Typography, message } from "antd";
+import {
+  Modal,
+  Form,
+  Input,
+  Button,
+  Upload,
+  Typography,
+  message,
+  DatePicker,
+  Space,
+} from "antd";
+import moment from "moment";
 import { PlusOutlined } from "@ant-design/icons";
 
 import {
-    createAuctionSuccessAsync,
-    clearCreateAuctionSuccess,
-} from "../../store/auction/action"
+  createAuctionSuccessAsync,
+  clearCreateAuctionSuccess,
+  fetchAllAuctionsSuccessAsync,
+} from "../../store/auction/action";
 
-const AddAuction =({isOpen, onClose}) =>{
-    const dispatch = useDispatch();
-  const { createAuctionLoading, createAuctionError, createAuctionSuccess } = useSelector(
-    (state) => state.shop
-  );
+let bidStart, bidEnd;
+
+const AddAuction = ({ isOpen, onClose }) => {
+  const dispatch = useDispatch();
+  const {
+    auction,
+    createAuctionLoading,
+    createAuctionError,
+    createAuctionSuccess,
+    page,
+    limit,
+    total,
+  } = useSelector((state) => state.auction);
+  const { user } = useSelector((state) => state.user);
+
   const [form, setForm] = useState({
     file: null,
     fileList: [],
@@ -26,9 +48,10 @@ const AddAuction =({isOpen, onClose}) =>{
 
   useEffect(() => {
     if (createAuctionSuccess) {
-      message.success("Auction created successfuly");
+      message.success("Auction created successfully");
       onClose();
       dispatch(clearCreateAuctionSuccess());
+      dispatch(fetchAllAuctionsSuccessAsync(page, limit));
     }
   }, [createAuctionSuccess]);
 
@@ -62,18 +85,30 @@ const AddAuction =({isOpen, onClose}) =>{
       file.type === "image/png"
     );
   };
+
+  function onStartChange(date, dateString) {
+    console.log(date, dateString);
+    bidStart = date;
+  }
+  function onEndChange(date, dateString) {
+    bidEnd = date;
+  }
+
   const handleSubmit = (values) => {
-    const { name, description } = values;
+    const { name, description, startingBid } = values;
     if (!form.file) {
-      message.error("Auction photo is required");
+      message.error("Auction Item photo is required");
     } else if (!isJpgOrPng(form.file)) {
       message.error("Auction photo can only be JPG/PNG file!");
     } else {
       const formData = new FormData();
-      formData.append("name", name);
+      formData.append("itemName", name);
       formData.append("description", description);
       formData.append("image", form.file);
-      dispatch(createAuctionSuccessAsync(formData));
+      formData.append("startingBid", startingBid);
+      formData.append("bidStart", bidStart);
+      formData.append("bidEnd", bidEnd);
+      dispatch(createAuctionSuccessAsync(formData, user._id));
     }
   };
 
@@ -90,6 +125,7 @@ const AddAuction =({isOpen, onClose}) =>{
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
+
   return (
     <>
       <Modal
@@ -100,9 +136,21 @@ const AddAuction =({isOpen, onClose}) =>{
         footer={[]}
       >
         <Form initialValues={{}} onFinish={handleSubmit}>
+          <Form.Item>
+            <Typography.Text>Auction Photo</Typography.Text>
+            <Upload
+              listType="picture-card"
+              fileList={form.fileList}
+              onPreview={handlePreview}
+              onChange={handleChange}
+              beforeUpload={beforeUpload}
+            >
+              {form.fileList.length === 1 ? null : uploadButton}
+            </Upload>
+          </Form.Item>
           <Form.Item
             name="name"
-            rules={[{ required: true, message: "Please input auction!" }]}
+            rules={[{ required: true, message: "Please input auction name!" }]}
           >
             <Input size="large" placeholder="Auction Name" />
           </Form.Item>
@@ -114,17 +162,40 @@ const AddAuction =({isOpen, onClose}) =>{
           >
             <Input.TextArea rows={5} placeholder="Description" />
           </Form.Item>
-          <Form.Item>
-            <Typography.Text>Auction item Photo</Typography.Text>
-            <Upload
-              listType="picture-card"
-              fileList={form.fileList}
-              onPreview={handlePreview}
-              onChange={handleChange}
-              beforeUpload={beforeUpload}
-            >
-              {form.fileList.length === 1 ? null : uploadButton}
-            </Upload>
+
+          <Form.Item
+            name="startingBid"
+            rules={[
+              {
+                required: true,
+                message: "Please input auction starting bid amount!",
+              },
+            ]}
+          >
+            <Input placeholder="Starting Bid(Birr) : 0" />
+          </Form.Item>
+          <Form.Item
+            name="bidStart"
+            // rules={[
+            //   { required: true, message: "Please input auction start time!" },
+            // ]}
+          >
+            <Typography.Text>Bid Start Time </Typography.Text>
+            <Space>
+              <DatePicker onChange={onStartChange} />
+            </Space>
+          </Form.Item>
+          <Form.Item
+            name="bidEnd"
+            // rules={[
+            //   { required: true, message: "Please input auction end time!" },
+            // ]}
+          >
+            <Typography.Text>Bid End Time </Typography.Text>
+
+            <Space>
+              <DatePicker onChange={onEndChange} />
+            </Space>
           </Form.Item>
           <Form.Item>
             <div
@@ -160,6 +231,6 @@ const AddAuction =({isOpen, onClose}) =>{
       </Modal>
     </>
   );
-}
+};
 
 export default AddAuction;

@@ -9,7 +9,7 @@ export const fetchAllShopsStart = () => ({
     type: ShopActionTypes.SHOPS_FETCH_START
 });
 
-export const fetchAllShopsSuccess = (shops, page, limit,total) => ({
+export const fetchAllShopsSuccess = (shops, page, limit, total) => ({
     type: ShopActionTypes.SHOPS_FETCH_SUCCESS,
     payload:{
         shops,
@@ -85,7 +85,7 @@ export const clearCreateShopSuccess = () => ({
     type: ShopActionTypes.SHOP_UPDATE_START
 });
 
-export const updateShopSuccess = (id,shop) => ({
+export const updateShopSuccess = (id, shop) => ({
     type: ShopActionTypes.SHOP_UPDATE_SUCCESS,
     payload:{
         id,

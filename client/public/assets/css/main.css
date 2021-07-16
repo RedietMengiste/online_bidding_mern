@@ -6323,16 +6323,16 @@ div[class*="auction"] .custom-button {
 .team-item .team-inner .team-content .social li a {
   color: #52606d;
   padding: 5px;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1;
 }
 
 .team-item .team-inner .team-content .social li a:hover {
-  color: #ee4730;
+  color: #440685;
 }
 
 .team-item .team-inner .team-content .social li:nth-child(even) a {
-  color: #ee4730;
+  color: #440685;
 }
 
 /*Overview Section Starts Here*/
