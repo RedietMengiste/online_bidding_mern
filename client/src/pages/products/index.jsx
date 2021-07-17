@@ -6,11 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Navbar } from "../../components/Navbar";
 import useScript from "../../components/scripts/scripts";
 import Addproduct from "../../components/products/add-product";
+import AddToCart from "../../components/cart/addToCart";
 
 import {
   fetchAllProductsSuccessAsync,
   fetchProductsByOwnerSuccessAsync,
   fetchProductSuccessAsync,
+  fetchProductsByCategorySuccessAsync,
 } from "../../store/product/action";
 
 import { PlusOutlined } from "@ant-design/icons";
@@ -49,6 +51,9 @@ export const ProductPage = () => {
 
   const handlePaginationChange = (page) => {
     dispatch(fetchAllProductsSuccessAsync(page, limit));
+  };
+  const handleQuery = (event) => {
+    dispatch(fetchProductsByCategorySuccessAsync(event.target.value));
   };
 
   const handleProductClick = (id) => {
@@ -134,7 +139,7 @@ export const ProductPage = () => {
                         <div className={""}>
                           <div className={"bid-amount"}>
                             <div className={"icon"}>
-                              <i className={"flaticon-title"}></i>
+                              <i className={"flaticon-auction"}></i>
                             </div>
                             <div className={"amount-content"}>
                               <div className={"current"}>
@@ -156,11 +161,11 @@ export const ProductPage = () => {
                             </span>
                           </Link>
                         </div>
-                        <div className={"text-center"}>
+                        {/* <div className={"text-center"}>
                           <Link to="/products" className={"custom-button"}>
                             See Products
                           </Link>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -176,10 +181,14 @@ export const ProductPage = () => {
           <div className={"product-header mb-40"}>
             <div className={"product-header-item"}>
               <div className={"item"}>Select Category : </div>
-              <select name="sort-by" className={"select-bar"}>
+              <select
+                onChange={handleQuery}
+                name="sort-by"
+                className={"select-bar"}
+              >
                 <option value="all">All</option>
-                <option value="name">Name</option>
-                <option value="date">Date</option>
+                <option value="furniture">Furniture</option>
+                <option value="camera">Camera</option>
                 <option value="type">Type</option>
                 <option value="car">Car</option>
               </select>
@@ -206,7 +215,7 @@ export const ProductPage = () => {
                       <div className={""}>
                         <div className={"bid-amount"}>
                           <div className={"icon"}>
-                            <i className={"flaticon-title"}></i>
+                            <i className={"flaticon-auction "}></i>
                           </div>
                           <div className={"amount-content"}>
                             <div className={"current"}>
@@ -217,20 +226,17 @@ export const ProductPage = () => {
                         </div>
                       </div>
                       <div className={"countdown-area"}>
-                        <div className={"countdown"}>
-                          <div id="bid_counter26">Product of </div>
-                        </div>
                         <Link>
                           <span className={"total-bids"}>
                             Shop - {product.shop.name}
                           </span>
                         </Link>
                       </div>
-                      <div className={"text-center"}>
+                      {/* <div className={"text-center"}>
                         <a href="#0" className={"custom-button"}>
                           See Products
                         </a>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>

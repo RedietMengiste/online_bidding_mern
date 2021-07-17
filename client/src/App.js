@@ -29,6 +29,9 @@ import { ShopProducts } from "./pages/products/shop-products";
 import { AuctionsPage } from "./pages/auctions";
 
 import { AboutPage } from "./pages/about";
+import { OtherProfilePage } from "./pages/profile/otherProfile";
+
+import Cart from "./components/cart/cart";
 
 import { DetailAuctionPage } from "./pages/auctions/detail-auction";
 import { MyAuctionsPage } from "./pages/auctions/my-auction";
@@ -50,6 +53,11 @@ const App = () => {
 
       <Route exact path="/about">
         <AboutPage />
+      </Route>
+
+      {/* cart */}
+      <Route path="/cart">
+        <Cart />
       </Route>
 
       {/* public routes */}
@@ -85,6 +93,9 @@ const App = () => {
       {/* user routes */}
       <GuardedRoute exact path="/users/:userId">
         <ProfilePage />
+      </GuardedRoute>
+      <GuardedRoute exact path="/profile/:userId">
+        <OtherProfilePage />
       </GuardedRoute>
       <Route path="*">
         <NotFoundPage />

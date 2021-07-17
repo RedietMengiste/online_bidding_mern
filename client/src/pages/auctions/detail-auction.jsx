@@ -114,9 +114,9 @@ export const DetailAuctionPage = () => {
           <Bidding auction={auction} updateBids={updateBids} />
         </>
       ) : (
-        <Typography>{`Auction Starts at ${new Date(
+        <div className={"title text-center"}>{`Auction Starts at ${new Date(
           auction.bidStart
-        ).toLocaleString()}`}</Typography>
+        ).toLocaleString()}`}</div>
       )}
     </>
   );

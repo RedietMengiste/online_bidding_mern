@@ -12,26 +12,28 @@ import { fetchUserAsync, updateUserAsync } from "../../store/user/action";
 import { PlusOutlined, UserOutlined } from "@ant-design/icons";
 import { Pagination, Spin } from "antd";
 
-export const ProfilePage = () => {
-  useScript("assets/js/jquery-3.3.1.min.js");
-  useScript("assets/js/modernizr-3.6.0.min.js");
-  useScript("assets/js/plugins.js");
-  useScript("assets/js/bootstrap.min.js");
-  useScript("assets/js/isotope.pkgd.min.js");
-  useScript("assets/js/wow.min.js");
-  useScript("assets/js/waypoints.js");
-  useScript("assets/js/nice-select.js");
-  useScript("assets/js/counterup.min.js");
-  useScript("assets/js/owl.min.js");
-  useScript("assets/js/magnific-popup.min.js");
-  useScript("assets/js/yscountdown.min.js");
-  useScript("assets/js/jquery-ui.min.js");
-  useScript("assets/js/main.js");
+export const OtherProfilePage = () => {
+  useScript("/assets/js/jquery-3.3.1.min.js");
+  useScript("/assets/js/modernizr-3.6.0.min.js");
+  useScript("/assets/js/plugins.js");
+  useScript("/assets/js/bootstrap.min.js");
+  useScript("/assets/js/isotope.pkgd.min.js");
+  useScript("/assets/js/wow.min.js");
+  useScript("/assets/js/waypoints.js");
+  useScript("/assets/js/nice-select.js");
+  useScript("/assets/js/counterup.min.js");
+  useScript("/assets/js/owl.min.js");
+  useScript("/assets/js/magnific-popup.min.js");
+  useScript("/assets/js/yscountdown.min.js");
+  useScript("/assets/js/jquery-ui.min.js");
+  useScript("/assets/js/main.js");
 
   const dispatch = useDispatch();
   const history = useHistory();
   const [isModalOpen, setModal] = useState(false);
   const { userId } = useParams();
+  const [profile, setProfile] = useState({});
+  const [main, setMain] = useState({});
 
   //   const { user, fetchUserLoading } = useSelector(
   //     (state) => state.product
@@ -44,9 +46,15 @@ export const ProfilePage = () => {
       dispatch(updateUserAsync(user._id, { ...user, seller: true }));
     }
   };
+
   const onFinish = (values) => {};
+
   useEffect(() => {
     dispatch(fetchUserAsync(user._id));
+    setMain(user);
+    dispatch(fetchUserAsync(userId));
+    setProfile(user);
+    dispatch(fetchUserAsync(main._id));
   }, []);
 
   if (fetchUserLoading || !user) {
@@ -104,12 +112,12 @@ export const ProfilePage = () => {
                   <Form initialValues={{ remember: true }} onFinish={onFinish}>
                     <div class="thumb-area">
                       <div class="thumb">
-                        {/* <img
+                        <img
                           src={
                             "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngegg.com%2Fen%2Fpng-dweyv&psig=AOvVaw0wxhL28RRJGrM7TlNTvEnG&ust=1626372632841000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCKi7z6-U4_ECFQAAAAAdAAAAABAD"
                           }
                           alt="user"
-                        /> */}
+                        />
                       </div>
                       <label for="profile-pic" class="profile-pic-edit">
                         <i class="flaticon-pencil"></i>
@@ -123,9 +131,9 @@ export const ProfilePage = () => {
                   </Form>
                   <div class="content">
                     <h5 class="title">
-                      <a href="#0">{`${user.firstName} ${user.lastName}`}</a>
+                      <a href="#0">{`${profile.firstName} ${profile.lastName}`}</a>
                     </h5>
-                    <span class="username">{user.email}</span>
+                    <span class="username">{profile.email}</span>
                   </div>
                 </div>
                 <ul class="dashboard-menu">
@@ -147,16 +155,16 @@ export const ProfilePage = () => {
                     <ul class="dash-pro-body">
                       <li>
                         <div class="info-name">Name</div>
-                        <div class="info-value">{`${user.firstName} ${user.lastName}`}</div>
+                        <div class="info-value">{`${profile.firstName} ${profile.lastName}`}</div>
                       </li>
                       <li>
                         <div class="info-name">Email</div>
-                        <div class="info-value">{user.email}</div>
+                        <div class="info-value">{profile.email}</div>
                       </li>
                       <li>
                         <div class="info-name">Member since</div>
                         <div class="info-value">
-                          {new Date(user.createdAt).toUTCString()}
+                          {new Date(profile.createdAt).toUTCString()}
                         </div>
                       </li>
                     </ul>
@@ -176,7 +184,7 @@ export const ProfilePage = () => {
                       <li>
                         <div class="info-name">Seller</div>
                         <div class="info-value">
-                          {user._id === userId ? (
+                          {user._id === profile._id ? (
                             user.seller && (
                               <>
                                 <i class="flaticon-check text-success"></i>{" "}
@@ -216,7 +224,7 @@ export const ProfilePage = () => {
                     <ul class="dash-pro-body">
                       <li>
                         <div class="info-name">Email</div>
-                        <div class="info-value">{user.email}</div>
+                        <div class="info-value">{profile.email}</div>
                       </li>
                     </ul>
                   </div>
@@ -229,7 +237,7 @@ export const ProfilePage = () => {
                     <ul class="dash-pro-body">
                       <li>
                         <div class="info-name">Mobile</div>
-                        <div class="info-value">{user.phonenumber}</div>
+                        <div class="info-value">{profile.phonenumber}</div>
                       </li>
                     </ul>
                   </div>

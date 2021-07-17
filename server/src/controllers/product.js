@@ -92,7 +92,7 @@ exports.getAllProducts = async (req, res, next) => {
     const result = await Product.paginate(
       {},
       {
-        populate:"shop",
+        populate: "shop",
         page,
         limit,
         sort: "-createdAt",
@@ -175,8 +175,7 @@ exports.getShopAllProducts = async (req, res, next) => {
 
     const result = await Product.paginate(
       { shop: req.params.shopId },
-      {         populate:"shop",
-      page, limit, sort: "-createdAt" }
+      { populate: "shop", page, limit, sort: "-createdAt" }
     );
     //   .populate("shop", "_id name")
     //   .select("-image");

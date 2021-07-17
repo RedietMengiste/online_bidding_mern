@@ -286,7 +286,7 @@ export const MyAuctionsPage = () => {
       {/*  list of auctions*/}
       <div className={"auction-auction padding-bottom"}>
         <div className={"container"}>
-          <div className={"auction-header mb-40"}>
+          {/* <div className={"auction-header mb-40"}>
             <div className={"auction-header-item"}>
               <div className={"item"}>Select Category : </div>
               <select name="sort-by" className={"select-bar"}>
@@ -297,7 +297,7 @@ export const MyAuctionsPage = () => {
                 <option value="car">Car</option>
               </select>
             </div>
-          </div>
+          </div> */}
 
           <div className={"row mb-30-none justify-content-center"}>
             {auctions ? (

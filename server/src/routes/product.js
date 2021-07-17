@@ -52,5 +52,5 @@ router.route("/").get(productController.getAllProducts);
 
 //categories
 router.route("/any/categories").get(productController.getCategoriesList);
-
+router.route("/any/category").get(productController.searchProducts);
 module.exports = router;

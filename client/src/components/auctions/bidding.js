@@ -102,8 +102,8 @@ export const Bidding = (props) => {
               class="product-details-slider owl-theme owl-carousel"
               id="sync1"
             >
-              <div class="slide-top-item">
-                <div class="slide-inner">
+              <div class="">
+                <div class="" style={{ width: "250px", height: "350px" }}>
                   <img
                     src={`${process.env.REACT_APP_AUCTION_IMG_URL}/${props.auction.image}`}
                     alt="product"

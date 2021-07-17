@@ -11,31 +11,35 @@ import {
   fetchAllProductsSuccessAsync,
   fetchProductsByShopSuccessAsync,
   fetchProductSuccessAsync,
+  fetchProductsByCategorySuccessAsync,
 } from "../../store/product/action";
 
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, ShoppingCartOutlined } from "@ant-design/icons";
+
 import { Pagination, Spin, Button } from "antd";
 import { fetchUserAsync } from "../../store/user/action";
+import AddToCart from "../../components/cart/addToCart";
 
 export const ShopProducts = () => {
-  useScript("assets/js/jquery-3.3.1.min.js");
-  useScript("assets/js/modernizr-3.6.0.min.js");
-  useScript("assets/js/plugins.js");
-  useScript("assets/js/bootstrap.min.js");
-  useScript("assets/js/isotope.pkgd.min.js");
-  useScript("assets/js/wow.min.js");
-  useScript("assets/js/waypoints.js");
-  useScript("assets/js/nice-select.js");
-  useScript("assets/js/counterup.min.js");
-  useScript("assets/js/owl.min.js");
-  useScript("assets/js/magnific-popup.min.js");
-  useScript("assets/js/yscountdown.min.js");
-  useScript("assets/js/jquery-ui.min.js");
-  useScript("assets/js/main.js");
+  useScript("/assets/js/modernizr-3.6.0.min.js");
+  useScript("/assets/js/jquery-3.3.1.min.js");
+  useScript("/assets/js/plugins.js");
+  useScript("/assets/js/bootstrap.min.js");
+  useScript("/assets/js/isotope.pkgd.min.js");
+  useScript("/assets/js/wow.min.js");
+  useScript("/assets/js/waypoints.js");
+  useScript("/assets/js/nice-select.js");
+  useScript("/assets/js/counterup.min.js");
+  useScript("/assets/js/owl.min.js");
+  useScript("/assets/js/magnific-popup.min.js");
+  useScript("/assets/js/yscountdown.min.js");
+  useScript("/assets/js/jquery-ui.min.js");
+  useScript("/assets/js/main.js");
 
   const dispatch = useDispatch();
   const history = useHistory();
   const [isModalOpen, setModal] = useState(false);
+  const [search, setSearch] = useState("");
 
   const { shopId } = useParams();
   const { products, page, limit, total, fetchProductsLoading } = useSelector(
@@ -47,11 +51,16 @@ export const ShopProducts = () => {
     user && dispatch(fetchUserAsync(user._id));
     dispatch(fetchProductsByShopSuccessAsync(page, limit, shopId));
   }, []);
+  useEffect(() => {
+    dispatch(fetchProductsByCategorySuccessAsync);
+  }, [search]);
 
   const handlePaginationChange = (page) => {
     dispatch(fetchProductsByShopSuccessAsync(page, limit, shopId));
   };
-
+  const handleQuery = (event) => {
+    setSearch(event.target.value);
+  };
   const handleProductClick = (id) => {
     history.push(`/products/${id}/detail`);
   };
@@ -79,6 +88,49 @@ export const ShopProducts = () => {
     <>
       <Navbar />
       {/* bread crumb */}
+      <div class="cart-sidebar-area">
+        <div class="top-content">
+          <a href="index.html" class="logo">
+            <img src="/static/media/logo.66f7d86d.png" alt="logo" />
+          </a>
+          <span class="side-sidebar-close-btn">
+            <i class="fas fa-times"></i>
+          </span>
+        </div>
+        <div class="bottom-content">
+          <div class="cart-products">
+            <h4 class="title">Shopping cart</h4>
+            <div class="single-product-item">
+              <div class="thumb">
+                <a href="#0">
+                  <img
+                    src="http://localhost:5000/images/products/product-1626435787257-image.jpg"
+                    alt="shop"
+                  />
+                </a>
+              </div>
+              <div class="content">
+                <h4 class="title">
+                  <a href="#0">Macbook air</a>
+                </h4>
+                <div class="price">
+                  <span class="pprice">89000 Birr</span>{" "}
+                </div>
+                <a href="/" class="remove-cart">
+                  Remove
+                </a>
+              </div>
+            </div>
+            <div class="btn-wrapper text-center">
+              <a href="#0" class="custom-button">
+                <span>Checkout</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/*  */}
       <div className={"hero-section style-2"}>
         <div className={"container"}>
           <ul className={"breadcrumb"}>
@@ -161,7 +213,7 @@ export const ShopProducts = () => {
                         <div className={""}>
                           <div className={"bid-amount"}>
                             <div className={"icon"}>
-                              <i className={"flaticon-title"}></i>
+                              <i className={"flaticon-auction"}></i>
                             </div>
                             <div className={"amount-content"}>
                               <div className={"current"}>
@@ -174,20 +226,17 @@ export const ShopProducts = () => {
                           </div>
                         </div>
                         <div className={"countdown-area"}>
-                          <div className={"countdown"}>
-                            <div id="bid_counter26">product of </div>
-                          </div>
                           <Link>
                             <span className={"total-bids"}>
                               Shop - {product.shop.name}
                             </span>
                           </Link>
                         </div>
-                        <div className={"text-center"}>
+                        {/* <div className={"text-center"}>
                           <Link to="/products" className={"custom-button"}>
                             See Product Detail
                           </Link>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>
@@ -211,18 +260,22 @@ export const ShopProducts = () => {
       {products.length > 0 && (
         <div className={"product-auction padding-bottom"}>
           <div className={"container"}>
-            <div className={"product-header mb-40"}>
+            {/* <div className={"product-header mb-40"}>
               <div className={"product-header-item"}>
                 <div className={"item"}>Select Category : </div>
-                <select name="sort-by" className={"select-bar"}>
+                <select
+                  onChange={handleQuery}
+                  name="sort-by"
+                  className={"select-bar"}
+                >
                   <option value="all">All</option>
-                  <option value="name">Name</option>
-                  <option value="date">Date</option>
-                  <option value="type">Type</option>
+                  <option value="furniture">furniture</option>
+                  <option value="laptop">Laptop</option>
+                  <option value="realstate">Realstate</option>
                   <option value="car">Car</option>
                 </select>
               </div>
-            </div>
+            </div> */}
 
             <div className={"row mb-30-none justify-content-center"}>
               {products.map((product) => {
@@ -240,12 +293,19 @@ export const ShopProducts = () => {
                       <div className={"auction-content"}>
                         <h6 className={"title"}>
                           <a href="#0">{product.name}</a>
+                          <AddToCart item={product} />
                         </h6>
+
                         <div className={""}>
                           <div className={"bid-amount"}>
                             <div className={"icon"}>
                               <i className={"flaticon-title"}></i>
                             </div>
+                            <div class="price">
+                              {product.price}
+                              {" Birr "}
+                            </div>
+
                             <div className={"amount-content"}>
                               <div className={"current"}>
                                 {product.description}
@@ -257,20 +317,17 @@ export const ShopProducts = () => {
                           </div>
                         </div>
                         <div className={"countdown-area"}>
-                          <div className={"countdown"}>
-                            <div id="bid_counter26">Product of </div>
-                          </div>
                           <Link>
                             <span className={"total-bids"}>
                               Shop - {product.shop.name}
                             </span>
                           </Link>
                         </div>
-                        <div className={"text-center"}>
+                        {/* <div className={"text-center"}>
                           <a href="#0" className={"custom-button"}>
                             See Product Detail
                           </a>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>

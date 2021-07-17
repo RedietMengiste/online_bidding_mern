@@ -70,7 +70,7 @@ const AddProduct = ({ isOpen, onClose }) => {
     );
   };
   const handleSubmit = (values) => {
-    const { name, description } = values;
+    const { name, description, category, quantity, price } = values;
     if (!form.file) {
       message.error("Product photo is required");
     } else if (!isJpgOrPng(form.file)) {
@@ -80,6 +80,9 @@ const AddProduct = ({ isOpen, onClose }) => {
       formData.append("name", name);
       formData.append("description", description);
       formData.append("image", form.file);
+      formData.append("category", category);
+      formData.append("quantity", quantity);
+      formData.append("price", price);
       dispatch(createProductSuccessAsync(formData, shopId));
     }
   };
@@ -120,6 +123,28 @@ const AddProduct = ({ isOpen, onClose }) => {
             ]}
           >
             <Input.TextArea rows={5} placeholder="Description" />
+          </Form.Item>
+          <Form.Item
+            name="category"
+            rules={[
+              { required: true, message: "Please input product Category!" },
+            ]}
+          >
+            <Input placeholder="Category" />
+          </Form.Item>
+          <Form.Item
+            name="price"
+            rules={[{ required: true, message: "Please input product Price!" }]}
+          >
+            <Input placeholder="Price" />
+          </Form.Item>
+          <Form.Item
+            name="quantity"
+            rules={[
+              { required: true, message: "Please input product Quantity!" },
+            ]}
+          >
+            <Input placeholder="Quantity" />
           </Form.Item>
           <Form.Item>
             <Typography.Text>Product Photo</Typography.Text>

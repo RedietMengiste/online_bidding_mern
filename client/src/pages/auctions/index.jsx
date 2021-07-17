@@ -74,14 +74,13 @@ export const AuctionsPage = () => {
           <span>
             {currentDate < new Date(auction.bidStart) && (
               <>
-                <div className={"title"}>
+                <div className={"title "}>
                   <div className={"countdown-area text-center"}>
-                    <div className={"cate"} style={{ color: "#440685" }}>
+                    <div className={""} style={{ color: "#440685" }}>
                       Auction will Start after
                     </div>
-                    <div className={"countdown"}>
-                      <Timer endTime={auction.bidStart} />
-                    </div>
+
+                    <Timer endTime={auction.bidStart} />
                   </div>
                 </div>
               </>
@@ -108,9 +107,9 @@ export const AuctionsPage = () => {
                 </div>
               </>
             )}
-            {currentDate > new Date(auction.bidStart) &&
+            {/* {currentDate > new Date(auction.bidStart) &&
               auction.bids.length > 0 &&
-              ` | Last bid: $ ${auction.bids[0].bid}`}
+              `Last bid: $ ${auction.bids[0].bid}`} */}
           </span>
           <h6 className={"title"}>
             <a href="#0">{auction.itemName}</a>
@@ -132,23 +131,32 @@ export const AuctionsPage = () => {
               <div className={"amount-content"}>
                 <div className={"current"}>Starting Bid</div>
                 <div className={"amount"}>
-                  {auction.bids && auction.bids[0] && auction.bids[0].bid + 1}
+                  {/* {auction.bids && auction.bids[0] && auction.bids[0].bid + 1} */}
+                  {auction.bids.length > 0
+                    ? auction.bids && auction.bids[0] && auction.bids[0].bid + 1
+                    : auction.startingBid}
                 </div>
               </div>
             </div>
           </div>
           <div className={"countdown-area"}>
-            <div className={"countdown"}>
-              <div id="bid_counter27">{auction.endDate}</div>
-            </div>
-            <Link>
+            <div>
+              Seller
               <span className={"total-bids"}> {auction.seller.firstName}</span>
-            </Link>
+            </div>
+            <div>
+              Phone
+              <span className={"total-bids"}>{auction.seller.phonenumber}</span>
+            </div>
           </div>
         </div>
 
         <div className={"text-center"}>
-          <Link to={"/auctions/" + auction._id} className={"custom-button"}>
+          <Link
+            disabled={disabled}
+            to={"/auctions/" + auction._id}
+            className={"custom-button"}
+          >
             See Auctions
           </Link>
         </div>
@@ -159,6 +167,7 @@ export const AuctionsPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [isModalOpen, setModal] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   const { auctions, page, limit, total, fetchAuctionsLoading } = useSelector(
     (state) => state.auction
@@ -227,7 +236,7 @@ export const AuctionsPage = () => {
       >
         <div className={"container"}>
           <div className={"section-header cl-white mw-100 left-style"}>
-            <h3 className={"title"}>Auctions</h3>
+            <h3 className={"title"}>Recommended Auctions</h3>
           </div>
           <div className={"row justify-content-center mb-30-none"}>
             {auctions &&
@@ -259,7 +268,7 @@ export const AuctionsPage = () => {
       {/*  list of auctions*/}
       <div className={"auction-auction padding-bottom"}>
         <div className={"container"}>
-          <div className={"auction-header mb-40"}>
+          {/* <div className={"auction-header mb-40"}>
             <div className={"auction-header-item"}>
               <div className={"item"}>Select Category : </div>
               <select name="sort-by" className={"select-bar"}>
@@ -270,8 +279,8 @@ export const AuctionsPage = () => {
                 <option value="car">Car</option>
               </select>
             </div>
-          </div>
-
+          </div> */}
+          <h3 className={"title"}>Total Auctions</h3>
           <div className={"row mb-30-none justify-content-center"}>
             {auctions.map((auction) => {
               return (

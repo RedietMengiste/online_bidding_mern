@@ -43,7 +43,6 @@ export const MyShopPage = () => {
   const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
-
     dispatch(fetchShopsByOwnerSuccessAsync(page, limit));
   }, []);
 
@@ -195,19 +194,6 @@ export const MyShopPage = () => {
       {/*  list of shops*/}
       <div className={"product-auction padding-bottom"}>
         <div className={"container"}>
-          <div className={"product-header mb-40"}>
-            <div className={"product-header-item"}>
-              <div className={"item"}>Select Category : </div>
-              <select name="sort-by" className={"select-bar"}>
-                <option value="all">All</option>
-                <option value="name">Name</option>
-                <option value="date">Date</option>
-                <option value="type">Type</option>
-                <option value="car">Car</option>
-              </select>
-            </div>
-          </div>
-
           <div className={"row mb-30-none justify-content-center"}>
             {shops.map((shop) => {
               return (
