@@ -220,6 +220,75 @@ export const AboutPage = () => {
                         </div>
                     </div>
                 </div>
+                <div className={"team-item"}>
+                    <div className={"team-inner"}>
+                        <div className={"team-thumb"}>
+                            <a href="#0">
+                                <img src="/assets/images/about/red.jpg" alt="team"/>
+                            </a>
+                        </div>
+                        <div className={"team-content"}>
+                            <h6 className={"title"}><a href="#0">Rediet Mengiste</a></h6>
+                            <ul className={"social"}>
+                                <li>
+                                    <a href="#0"><i className={"fab fa-facebook-f"}></i></a>
+                                </li>
+                                <li>
+                                    <a href="#0"><i className={"fab fa-twitter"}></i></a>
+                                </li>
+                                <li>
+                                    <a href="#0"><i className={"fab fa-instagram"}></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div className={"team-item"}>
+                    <div className={"team-inner"}>
+                        <div className={"team-thumb"}>
+                            <a href="#0">
+                                <img src="/assets/images/about/red.jpg" alt="team"/>
+                            </a>
+                        </div>
+                        <div className={"team-content"}>
+                            <h6 className={"title"}><a href="#0">Rediet Mengiste</a></h6>
+                            <ul className={"social"}>
+                                <li>
+                                    <a href="#0"><i className={"fab fa-facebook-f"}></i></a>
+                                </li>
+                                <li>
+                                    <a href="#0"><i className={"fab fa-twitter"}></i></a>
+                                </li>
+                                <li>
+                                    <a href="#0"><i className={"fab fa-instagram"}></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div className={"team-item"}>
+                    <div className={"team-inner"}>
+                        <div className={"team-thumb"}>
+                            <a href="#0">
+                                <img src="/assets/images/about/red.jpg" alt="team"/>
+                            </a>
+                        </div>
+                        <div className={"team-content"}>
+                            <h6 className={"title"}><a href="#0">Rediet Mengiste</a></h6>
+                            <ul className={"social"}>
+                                <li>
+                                    <a href="#0"><i className={"fab fa-facebook-f"}></i></a>
+                                </li>
+                                <li>
+                                    <a href="#0"><i className={"fab fa-twitter"}></i></a>
+                                </li>
+                                <li>
+                                    <a href="#0"><i className={"fab fa-instagram"}></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                
             </div>
         </div>

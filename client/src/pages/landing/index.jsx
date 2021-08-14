@@ -5,6 +5,7 @@ import { Footer } from "../../components/Footer";
 import useScript from "../../components/scripts/scripts";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserAsync } from "../../store/user/action";
+import logoName from "../../assets/images/logo/utopiaName.png";
 
 export const LandingPage = () => {
   useScript("/assets/js/jquery-3.3.1.min.js");
@@ -58,7 +59,7 @@ export const LandingPage = () => {
               <div className={"banner-content cl-white"}>
                 <h5 className={"cate"}>Buy Different Products</h5>
                 <h1 className={"title"}>
-                  <span className={"d-xl-block"}>E-Gebeya</span> Next Deal!
+                  <span className={"d-xl-block"}><img src={logoName} style={{ marginLeft: "-25px",width:"440px" }} alt="logo" /></span> Next Deal!
                 </h1>
                 <p>
                   Online Auction is where everyone goes to shop, sell,and give,

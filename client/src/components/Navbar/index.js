@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../store/user/action";
-import logo from "../../assets/images/logo/logo.png";
+import logo from "../../assets/images/logo/utopia.png";
 import cartHelper from "../cart/cartHelper";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 
@@ -21,7 +21,7 @@ export const Navbar = () => {
           <div className={"header-wrapper"}>
             <div className={"logo"}>
               <Link to="/">
-                <img src={logo} style={{ marginLeft: "50px" }} alt="logo" />
+                <img src={logo} style={{ marginLeft: "50px",width:"240px" }} alt="logo" />
               </Link>
             </div>
             <ul className={"menu"} style={{ marginRight: "50px" }}>
